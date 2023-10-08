@@ -7,6 +7,9 @@ let paperButton = document.getElementById("paper");
 let scissorsButton = document.getElementById("scissors");
 let playerChoice;
 
+alert("Scoreboard doesn't work yet!");
+const choicesArray = ["Rock", "Paper", "Scissors"];
+
 const playGame = () => {
   let computerChoice = Math.floor(Math.random() * 3);
   let winner = "No one";
@@ -19,29 +22,29 @@ const playGame = () => {
           winner = "Computer";
           break;
         case 2:
-          winner = "Player";
+          winner = "You";
           break;
       }
       break;
     case 1:
       switch (computerChoice) {
         case 0:
-          winner = "Computer";
+          winner = "You";
           break;
         case 1:
           break;
         case 2:
-          winner = "Player";
+          winner = "Computer";
           break;
       }
       break;
     case 2:
       switch (computerChoice) {
         case 0:
-          winner = "Player";
+          winner = "Computer";
           break;
         case 1:
-          winner = "Computer;";
+          winner = "You;";
           break;
         case 2:
           break;
@@ -49,7 +52,9 @@ const playGame = () => {
       break;
   }
 
-  gameInfoPanel.innerHTML = `${winner} won!`;
+  gameInfoPanel.innerHTML = `You chose ${choicesArray[playerChoice]}.
+  Computer chose ${choicesArray[computerChoice]}. 
+  ${winner} won!`;
   gameOffPanel.style.display = "flex";
   gameOnPanel.style.display = "none";
 };
