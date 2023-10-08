@@ -1,42 +1,47 @@
-const getComputerChoice = () => Math.floor(Math.random() * 3); // return a number between 0,1 and 3
+let gameOnPanel = document.querySelector(".gameOn");
+let gameOffPanel = document.querySelector(".gameOff");
+let gameInfoPanel = document.querySelector(".gameInfo");
+let startButton = document.getElementById("start");
+let rockButton = document.getElementById("rock");
+let paperButton = document.getElementById("paper");
+let scissorsButton = document.getElementById("scissors");
+let playerChoice;
 
-const startGame = () => {
-  let playerChoice = +prompt("R,P,S?");
-  let computerChoice = getComputerChoice();
-  let winner = "No one!";
-
+const playGame = () => {
+  let computerChoice = Math.floor(Math.random() * 3);
+  let winner = "No one";
   switch (playerChoice) {
     case 0:
       switch (computerChoice) {
         case 0:
           break;
         case 1:
-          winner = "computer;";
+          winner = "Computer";
           break;
         case 2:
-          winner = "player";
+          winner = "Player";
           break;
       }
       break;
     case 1:
       switch (computerChoice) {
         case 0:
-          winner = "computer;";
+          winner = "Computer";
           break;
         case 1:
           break;
         case 2:
-          winner = "player";
+          winner = "Player";
           break;
       }
       break;
     case 2:
       switch (computerChoice) {
         case 0:
-          winner = "player";
+          winner = "Player";
           break;
         case 1:
-          winner = "computer;";
+          winner = "Computer;";
           break;
         case 2:
           break;
@@ -44,13 +49,27 @@ const startGame = () => {
       break;
   }
 
-  alert(winner);
+  gameInfoPanel.innerHTML = `${winner} won!`;
+  gameOffPanel.style.display = "flex";
+  gameOnPanel.style.display = "none";
 };
 
-const loopGame = () => {
-  let n = +prompt("katno?");
-
-  for (let i = 0; i <= n; i++) {
-    startGame();
-  }
+const startGame = () => {
+  gameOffPanel.style.display = "none";
+  gameOnPanel.style.display = "flex";
+  gameInfoPanel.innerHTML = "Rock, Paper or Scissors?";
 };
+
+startButton.addEventListener("click", startGame);
+rockButton.addEventListener("click", () => {
+  playerChoice = 0;
+  playGame();
+});
+paperButton.addEventListener("click", () => {
+  playerChoice = 1;
+  playGame();
+});
+scissorsButton.addEventListener("click", () => {
+  playerChoice = 2;
+  playGame();
+});
