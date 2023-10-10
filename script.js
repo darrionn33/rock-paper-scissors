@@ -6,9 +6,15 @@ let rockButton = document.getElementById("rock");
 let paperButton = document.getElementById("paper");
 let scissorsButton = document.getElementById("scissors");
 let playerChoice;
+const playerScore = document.querySelector("#playerScore");
+const compScore = document.querySelector("#compScore");
 
-alert("Scoreboard doesn't work yet!");
+// alert("Scoreboard doesn't work yet!");
 const choicesArray = ["Rock", "Paper", "Scissors"];
+
+let scores = [0, 0];
+playerScore.textContent = scores[0];
+compScore.textContent = scores[1];
 
 const playGame = () => {
   let computerChoice = Math.floor(Math.random() * 3);
@@ -20,9 +26,11 @@ const playGame = () => {
           break;
         case 1:
           winner = "Computer";
+          scores[1] = scores[1] + 1;
           break;
         case 2:
           winner = "You";
+          scores[0] = scores[0] + 1;
           break;
       }
       break;
@@ -30,11 +38,13 @@ const playGame = () => {
       switch (computerChoice) {
         case 0:
           winner = "You";
+          scores[0] = scores[0] + 1;
           break;
         case 1:
           break;
         case 2:
           winner = "Computer";
+          scores[1] = scores[1] + 1;
           break;
       }
       break;
@@ -42,15 +52,20 @@ const playGame = () => {
       switch (computerChoice) {
         case 0:
           winner = "Computer";
+          scores[1] = scores[1] + 1;
           break;
         case 1:
           winner = "You;";
+          scores[0] = scores[0] + 1;
           break;
         case 2:
           break;
       }
       break;
   }
+  console.log(scores);
+  playerScore.textContent = scores[0];
+  compScore.textContent = scores[1];
 
   gameInfoPanel.innerHTML = `You chose ${choicesArray[playerChoice]}.
   Computer chose ${choicesArray[computerChoice]}. 
