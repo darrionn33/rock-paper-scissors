@@ -1,35 +1,45 @@
+let gamePanel = document.querySelector(".game");
 let gameOnPanel = document.querySelector(".gameOn");
-let gameOffPanel = document.querySelector(".gameOff");
-let gameInfoPanel = document.querySelector(".gameInfo");
-let startButton = document.getElementById("start");
+let gameEndPanel = document.querySelector(".gameEnd");
 let rockButton = document.getElementById("rock");
 let paperButton = document.getElementById("paper");
 let scissorsButton = document.getElementById("scissors");
-let playerChoice;
+let replayButton = document.getElementById("replay");
+let restartButton = document.getElementById("restart");
+let resultText = document.querySelector(".gameEnd > span");
 const playerScore = document.querySelector("#playerScore");
 const compScore = document.querySelector("#compScore");
 
-// alert("Scoreboard doesn't work yet!");
-const choicesArray = ["Rock", "Paper", "Scissors"];
+let game = false;
+const choicesArray = ["Rock.png", "Paper.png", "Scissor.png"];
 
 let scores = [0, 0];
 playerScore.textContent = scores[0];
 compScore.textContent = scores[1];
 
-const playGame = () => {
+const playGame = (playerChoice) => {
+  game = true;
+  const player = document.createElement("div");
+  player.classList.add("player");
+  const computer = document.createElement("div");
+  computer.classList.add("computer");
+  gamePanel.replaceChildren();
+  gamePanel.appendChild(player);
+  gamePanel.appendChild(computer);
+
   let computerChoice = Math.floor(Math.random() * 3);
-  let winner = "No one";
+  let text = "It's a draw!";
   switch (playerChoice) {
     case 0:
       switch (computerChoice) {
         case 0:
           break;
         case 1:
-          winner = "Computer";
+          text = "Computer won!";
           scores[1] = scores[1] + 1;
           break;
         case 2:
-          winner = "You";
+          text = "You won!";
           scores[0] = scores[0] + 1;
           break;
       }
@@ -37,13 +47,13 @@ const playGame = () => {
     case 1:
       switch (computerChoice) {
         case 0:
-          winner = "You";
+          text = "You won!";
           scores[0] = scores[0] + 1;
           break;
         case 1:
           break;
         case 2:
-          winner = "Computer";
+          text = "Computer won!";
           scores[1] = scores[1] + 1;
           break;
       }
@@ -51,11 +61,11 @@ const playGame = () => {
     case 2:
       switch (computerChoice) {
         case 0:
-          winner = "Computer";
+          text = "Computer won!";
           scores[1] = scores[1] + 1;
           break;
         case 1:
-          winner = "You;";
+          text = "You won!";
           scores[0] = scores[0] + 1;
           break;
         case 2:
@@ -63,33 +73,59 @@ const playGame = () => {
       }
       break;
   }
-  console.log(scores);
-  playerScore.textContent = scores[0];
-  compScore.textContent = scores[1];
 
-  gameInfoPanel.innerHTML = `You chose ${choicesArray[playerChoice]}.
-  Computer chose ${choicesArray[computerChoice]}. 
-  ${winner} won!`;
-  gameOffPanel.style.display = "flex";
+  computer.classList.add("right");
+  player.classList.add("left");
+  setTimeout(function () {
+    computer.style.background = `url(./assets/${choicesArray[computerChoice]})`;
+    computer.style.backgroundSize = "contain";
+    player.style.background = `url(./assets/${choicesArray[playerChoice]})`;
+    player.style.backgroundSize = "contain";
+    playerScore.textContent = scores[0];
+    compScore.textContent = scores[1];
+    resultText.innerHTML = text;
+    game = false;
+  }, 1600);
   gameOnPanel.style.display = "none";
+  gameEndPanel.style.display = "flex";
+  resultText.innerHTML = "Playing...";
 };
 
-const startGame = () => {
-  gameOffPanel.style.display = "none";
+rockButton.onclick = () => {
+  playGame(0);
+};
+paperButton.onclick = () => {
+  playGame(1);
+};
+scissorsButton.onclick = () => {
+  playGame(2);
+};
+
+const replay = () => {
+  gameEndPanel.style.display = "none";
   gameOnPanel.style.display = "flex";
-  gameInfoPanel.innerHTML = "Rock, Paper or Scissors?";
+  document.querySelector(
+    ".computer"
+  ).style.background = `url(./assets/${choicesArray[0]})`;
+  document.querySelector(".computer").classList.remove("right");
+  document.querySelector(".computer").style.backgroundSize = "contain";
+  document.querySelector(
+    ".player"
+  ).style.background = `url(./assets/${choicesArray[0]})`;
+  document.querySelector(".player").style.backgroundSize = "contain";
+  document.querySelector(".player").classList.remove("left");
 };
 
-startButton.addEventListener("click", startGame);
-rockButton.addEventListener("click", () => {
-  playerChoice = 0;
-  playGame();
-});
-paperButton.addEventListener("click", () => {
-  playerChoice = 1;
-  playGame();
-});
-scissorsButton.addEventListener("click", () => {
-  playerChoice = 2;
-  playGame();
-});
+replayButton.onclick = () => {
+  if (!game) {
+    replay();
+  }
+};
+restartButton.onclick = () => {
+  if (!game) {
+    scores = [0, 0];
+    playerScore.textContent = scores[0];
+    compScore.textContent = scores[1];
+    replay();
+  }
+};

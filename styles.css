@@ -9,134 +9,151 @@ html {
   margin: 0;
   bottom: 0;
   font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
 }
-.gameOff {
-  /* display: none; */
-  display: flex;
+button {
+  cursor: pointer;
 }
-.gameOn {
-  display: none;
-  /* display: flex; */
-}
+
 body {
   display: flex;
+  padding-top: 100px;
   align-items: center;
   flex-direction: column;
-  padding-top: 100px;
   width: 100dvw;
   height: 100dvh;
-  gap: 10px;
+  gap: 20px;
+  background-color: darkcyan;
+  color: white;
 }
 h1 {
-  text-decoration: underline;
-  text-decoration-style: double;
-  text-underline-offset: 7px;
-  text-decoration-thickness: 3px;
+  text-align: center;
+  color: white;
+  text-decoration: underline double;
   margin-bottom: 20px;
 }
-.gameInfo {
-  border: 1px solid black;
+.game {
   height: 200px;
   width: 100%;
   max-width: 500px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   border-radius: 5px;
 }
-.container,
-.gameScores {
+.player,
+.computer {
+  width: 120px;
+  aspect-ratio: 1;
+  transform: rotate(-20deg);
+}
+.player {
+  background: url(./assets/rock.png);
+  background-size: contain;
+}
+.computer {
+  background: url(./assets/rock.png);
+  background-size: contain;
+  transform: rotateY(180deg) rotatez(-20deg);
+}
+.left {
+  animation: left 2s forwards;
+}
+.right {
+  animation: right 2s forwards;
+}
+@keyframes left {
+  0%,
+  40%,
+  80% {
+    transform: rotate(-20deg);
+  }
+  20%,
+  60%,
+  100% {
+    transform: rotate(20deg);
+  }
+}
+@keyframes right {
+  0%,
+  40%,
+  80% {
+    transform: rotateY(180deg) rotateZ(-20deg);
+  }
+  20%,
+  60%,
+  100% {
+    transform: rotateY(180deg) rotateZ(20deg);
+  }
+}
+.container {
+  width: 100%;
+  height: 55px;
+  max-width: 500px;
+}
+.gameOn {
   display: flex;
   justify-content: center;
-  width: 100%;
-  max-width: 500px;
   height: 100%;
-  max-height: 100px;
-  /* border: 1px solid; */
-}
-.gameScores {
-  flex-direction: column;
-  align-items: center;
-  /* border: 1px solid red; */
-}
-.gameScores > div {
-  flex: 1;
-  width: 50%;
-}
-
-.names,
-.value {
-  display: flex;
 
   gap: 10px;
-  /* border: 1px solid red; */
-  align-items: flex-end;
-  padding: 2px 10px;
 }
-.names {
-  border-bottom: 2px solid black;
+.gameOn > button {
+  flex: 1;
+  height: 100%;
+  padding: 15px 10px;
+  text-transform: uppercase;
+  background-color: white;
+  border-radius: 5px;
+  border-style: none;
 }
-.names > h2,
-.value > h2 {
+.gameEnd {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 0 10px;
+  gap: 5px;
+
+  display: none;
+}
+.gameEnd > span {
+  color: black;
   flex: 1;
   text-align: center;
 }
-.container > div {
-  justify-content: center;
+.gameEnd > button {
+  padding: 10px;
+  background-color: darkcyan;
+  border-radius: 5px;
+  color: white;
+  border-style: none;
+}
+.scores {
+  border: 5px solid white;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 5px 1fr;
+  grid-template-rows: 1fr 5px 1fr;
+  justify-items: center;
+}
+.scores > *:not(.divider) {
+  padding: 10px;
+}
+.divider {
+  background-color: white;
   width: 100%;
-  padding: 20px 0px;
-  gap: 10px;
-}
-.container > div > button {
-  flex: 1;
-  transition: all 0.5s ease-in-out;
-}
-.container > div > button:hover {
-  transform: scale(1.05);
-}
-#start {
-  background-color: steelblue;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bolder;
-  font-size: 100%;
-  border-radius: 5px;
-  border: none;
-}
-#rock {
-  background-color: lightcoral;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bolder;
-  font-size: 100%;
-  border-radius: 5px;
-  border: none;
-}
-#paper {
-  background-color: cadetblue;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bolder;
-  font-size: 100%;
-  border-radius: 5px;
-  border: none;
-}
-#scissors {
-  background-color: hotpink;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bolder;
-  font-size: 100%;
-  border-radius: 5px;
-  border: none;
+  height: 100%;
 }
 
 @media screen and (max-width: 500px) {
-  .gameInfo {
-    max-width: 90%;
-    font-size: small;
+  body {
+    padding: 10px;
+    padding-top: 50px;
   }
-  .container > div {
-    max-width: 90%;
+  h1 {
+    font-size: 20px;
   }
 }
