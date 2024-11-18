@@ -11,7 +11,7 @@ const playerScore = document.querySelector("#playerScore");
 const compScore = document.querySelector("#compScore");
 
 let game = false;
-const choicesArray = ["Rock.png", "Paper.png", "Scissor.png"];
+const choicesArray = ["rock.png", "paper.png", "scissor.png"];
 
 let scores = [0, 0];
 playerScore.textContent = scores[0];
